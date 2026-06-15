@@ -1,33 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <script>
-      // Single Page Apps for GitHub Pages
-      // https://github.com/rafrex/spa-github-pages
-      // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
-      // ----------------------------------------------------------------------
-      // This script takes the current url and converts the path and query
-      // string into just a query string, and then redirects the browser
-      // to the new url with only a query string and hash fragment
-      // ----------------------------------------------------------------------
-
-      var l = window.location;
-      l.replace(
-        l.protocol +
-          '//' +
-          l.hostname +
-          (l.port ? ':' + l.port : '') +
-          l.pathname
-            .split('/')
-            .map(function (i) {
-              return encodeURIComponent(i);
-            })
-            .join('/') +
-          '/index.html' +
-          l.search +
-          l.hash
-      );
-    </script>
-  </head>
-  <body></body>
+    <head>
+        <meta charset="utf-8" />
+        <title>Upscale VoIP</title>
+        <script>
+            // Single Page Apps for GitHub Pages
+            // This correctly handles client-side routing by redirecting
+            // all 404s to index.html with the original path preserved
+            (function () {
+                var segmentCount = 1;
+                var l = window.location;
+                var path = l.pathname
+                    .split("/")
+                    .slice(segmentCount + 1)
+                    .join("/")
+                    .replace(/&/g, "~and~");
+                l.replace(
+                    l.protocol +
+                        "//" +
+                        l.hostname +
+                        (l.port ? ":" + l.port : "") +
+                        l.pathname
+                            .split("/")
+                            .slice(0, segmentCount + 1)
+                            .join("/") +
+                        "/?p=/" +
+                        path +
+                        (l.search
+                            ? "&q=" + l.search.slice(1).replace(/&/g, "~and~")
+                            : "") +
+                        l.hash,
+                );
+            })();
+        </script>
+    </head>
+    <body></body>
 </html>
