@@ -102,7 +102,7 @@ const Plans = () => {
             Monthly
           </button>
           <button className="px-6 py-2 rounded-md text-gray-600 font-medium">
-            Annual (Save 20%)
+            Annual
           </button>
         </div>
       </div>

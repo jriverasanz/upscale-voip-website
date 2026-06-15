@@ -7,6 +7,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import Plans from "./pages/Plans";
+import Solutions from "./pages/Solutions";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -27,20 +28,19 @@ const clientLogos = [
   { file: "noble infusion.png", alt: "Noble Infusion" },
   { file: "On-Time logo.png", alt: "On-Time" },
   { file: "park t.png", alt: "Park T" },
-  { file: "pioneer.png", alt: "Pioneer", folder: "" },
+  { file: "pioneer.png", alt: "Pioneer" },
   { file: "PLCL.png", alt: "PLCL" },
   { file: "queens nassau.png", alt: "Queens Nassau" },
   { file: "scalia.png", alt: "Scalia" },
   { file: "universal.png", alt: "Universal" },
-  { file: "renewf.png", alt: "RenewF", folder: "" },
-  { file: "satmar.png", alt: "Satmar", folder: "" },
-  { file: "nobleot.png", alt: "Noble OT", folder: "" },
-  { file: "prominent.png", alt: "Prominent", folder: "" },
-  { file: "glilos.png", alt: "Glilos", folder: "" },
-].map(({ file, alt, folder = "Clients logo" }) => ({
+  { file: "renewf.png", alt: "RenewF" },
+  { file: "satmar.png", alt: "Satmar" },
+  { file: "nobleot.png", alt: "Noble OT" },
+  { file: "prominent.png", alt: "Prominent" },
+  { file: "glilos.png", alt: "Glilos" },
+].map(({ file, alt }) => ({
   alt,
-  src: new URL(folder ? `../${folder}/${file}` : `../${file}`, import.meta.url)
-    .href,
+  src: new URL(`./assets/client-logos/${file}`, import.meta.url).href,
 }));
 
 const reliabilityStats = [
@@ -690,20 +690,50 @@ function MobileNavLink({ to, label, onClick }) {
 function NavBar() {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
 
   const navLinks = [
     { label: "Home", href: "/" },
-    { label: "Solutions", href: "/solutions" },
+    { label: "Solutions", href: "/solutions", hasDropdown: true },
     { label: "Plans", href: "/plans" },
     { label: "Integrations", href: "/#integrations" },
     { label: "Apps", href: "/#apps" },
     { label: "Contact", href: "/contact" },
   ];
 
-  // Close mobile menu on route change
+  const solutionsDropdown = [
+    { label: "Overview", href: "/solutions" },
+    {
+      label: "Call Handling & Routing",
+      href: "/solutions?category=call-handling",
+    },
+    {
+      label: "Call Management & Monitoring",
+      href: "/solutions?category=call-management",
+    },
+    {
+      label: "User Features & Presence",
+      href: "/solutions?category=user-features",
+    },
+    { label: "Apps & Devices", href: "/solutions?category=apps-devices" },
+    { label: "System & Admin", href: "/solutions?category=system-admin" },
+    { label: "Caller ID & Numbers", href: "/solutions?category=caller-id" },
+    {
+      label: "Integrations & Portal",
+      href: "/solutions?category=integrations-portal",
+    },
+    {
+      label: "FlowBot AI Agent",
+      href: "/solutions?category=flowbot",
+      isNew: true,
+    },
+  ];
+
+  // Close mobile menu and dropdown on route change
   useEffect(() => {
     setMobileOpen(false);
-  }, [location.pathname]);
+    setSolutionsOpen(false);
+  }, [location.pathname, location.search]);
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -734,10 +764,46 @@ function NavBar() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex gap-6 text-sm text-brand-navy">
-          {navLinks.map((link) => (
-            <NavLink key={link.href} to={link.href} label={link.label} />
-          ))}
+        <nav className="hidden md:flex gap-1 text-sm text-brand-navy">
+          {navLinks.map((link) =>
+            link.hasDropdown ? (
+              <div
+                key={link.href}
+                className="relative"
+                onMouseEnter={() => setSolutionsOpen(true)}
+                onMouseLeave={() => setSolutionsOpen(false)}
+              >
+                <NavLink to={link.href} label={link.label} />
+                {solutionsOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-brand-navy/10 py-2 z-50">
+                    {solutionsDropdown.map((item) => (
+                      <Link
+                        key={item.href}
+                        to={item.href}
+                        className={`flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-brand-softblue transition-colors ${
+                          location.pathname + location.search === item.href ||
+                          (location.pathname === "/solutions" &&
+                            item.href === "/solutions")
+                            ? "text-brand-violet font-semibold"
+                            : "text-brand-charcoal"
+                        }`}
+                        onClick={() => setSolutionsOpen(false)}
+                      >
+                        <span>{item.label}</span>
+                        {item.isNew && (
+                          <span className="ml-auto text-[10px] uppercase tracking-wider bg-brand-violet/10 text-brand-violet px-2 py-0.5 rounded-full font-semibold">
+                            New
+                          </span>
+                        )}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <NavLink key={link.href} to={link.href} label={link.label} />
+            ),
+          )}
         </nav>
 
         <div className="flex gap-2 items-center">
@@ -792,14 +858,45 @@ function NavBar() {
         className={`md:hidden fixed inset-0 top-[4.5rem] z-50 bg-white/98 backdrop-blur-xl transition-all duration-300 ${mobileOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"}`}
       >
         <nav className="flex flex-col gap-2 p-6">
-          {navLinks.map((link) => (
-            <MobileNavLink
-              key={link.href}
-              to={link.href}
-              label={link.label}
-              onClick={() => setMobileOpen(false)}
-            />
-          ))}
+          {navLinks.map((link) =>
+            link.hasDropdown ? (
+              <div key={link.href} className="flex flex-col">
+                <MobileNavLink
+                  to={link.href}
+                  label={link.label}
+                  onClick={() => setMobileOpen(false)}
+                />
+                <div className="ml-4 mt-1 mb-2 flex flex-col border-l-2 border-brand-violet/20 pl-3">
+                  {solutionsDropdown.map((item) => (
+                    <Link
+                      key={item.href}
+                      to={item.href}
+                      className={`flex items-center gap-2 py-2 text-sm ${
+                        location.pathname + location.search === item.href
+                          ? "text-brand-violet font-semibold"
+                          : "text-brand-charcoal/70"
+                      }`}
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      <span>{item.label}</span>
+                      {item.isNew && (
+                        <span className="text-[10px] uppercase tracking-wider bg-brand-violet/10 text-brand-violet px-2 py-0.5 rounded-full font-semibold">
+                          New
+                        </span>
+                      )}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <MobileNavLink
+                key={link.href}
+                to={link.href}
+                label={link.label}
+                onClick={() => setMobileOpen(false)}
+              />
+            ),
+          )}
           <hr className="my-2 border-brand-navy/10" />
           <Link
             to="/contact"
@@ -865,528 +962,399 @@ function FaqItem({ q, a }) {
   );
 }
 
-function HomePage({ isSolutionsPage }) {
+function HomePage() {
   return (
     <div className="font-body text-brand-charcoal min-h-screen flex flex-col">
       <BackToTop />
       <main className="pb-12 lg:pb-16">
-        {isSolutionsPage ? (
-          <>
-            <section id="hero" className="relative py-12 lg:py-16 px-4">
-              <div className="max-w-6xl mx-auto bg-white rounded-[2.5rem] px-6 md:px-12 py-12 shadow-[0_35px_80px_rgba(17,38,87,0.08)] relative overflow-hidden">
-                <div
-                  className="absolute -top-32 -left-32 w-72 h-72 bg-brand-violet/15 rounded-full blur-3xl"
-                  aria-hidden
-                />
-                <div
-                  className="absolute -bottom-32 -right-32 w-80 h-80 bg-brand-slate/10 rounded-full blur-3xl"
-                  aria-hidden
-                />
-                <div className="relative grid gap-10 md:grid-cols-[1.2fr_0.8fr] items-center">
-                  <div>
-                    <div className="inline-flex px-4 py-1.5 rounded-full bg-brand-softblue text-brand-violet font-semibold text-sm">
-                      Solutions Suite
-                    </div>
-                    <h1 className="font-display text-4xl lg:text-5xl text-brand-navy mt-6 leading-tight">
-                      Every call control. One intuitive platform.
-                    </h1>
-                    <p className="mt-4 text-base text-brand-charcoal/70">
-                      Upscale VoIP combines routing, analytics, collaboration,
-                      and customer touchpoints so your teams can answer, assist,
-                      and resolve faster. Explore the complete feature stack
-                      that comes standard.
-                    </p>
-                    <ul className="mt-6 grid gap-3 text-brand-navy font-medium sm:grid-cols-2">
-                      {[
-                        "Live call queues",
-                        "Multi-device apps",
-                        "Advanced routing rules",
-                        "Compliant recording",
-                      ].map((item) => (
-                        <li key={item} className="flex items-start gap-2">
-                          <span className="text-brand-violet">✔</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="mt-8 flex flex-wrap gap-3">
-                      <Link
-                        to="/contact"
-                        className="inline-flex px-6 py-3 rounded-full bg-brand-violet text-white font-semibold shadow-lg"
-                      >
-                        Talk to an expert
-                      </Link>
-                      <Link
-                        to="/plans"
-                        className="inline-flex px-6 py-3 rounded-full border border-brand-violet text-brand-violet font-semibold"
-                      >
-                        View pricing
-                      </Link>
-                    </div>
-                  </div>
+        <section id="hero" className="relative py-10 lg:py-12 px-4">
+          <div className="max-w-6xl mx-auto bg-white rounded-[2.5rem] px-6 md:px-12 py-12 shadow-[0_35px_80px_rgba(17,38,87,0.08)] relative overflow-hidden">
+            <div
+              className="absolute -top-32 -left-32 w-72 h-72 bg-brand-violet/15 rounded-full blur-3xl"
+              aria-hidden
+            />
+            <div
+              className="absolute -bottom-32 -right-32 w-80 h-80 bg-brand-slate/10 rounded-full blur-3xl"
+              aria-hidden
+            />
+            <div className="relative grid gap-10 md:grid-cols-2 items-center">
+              <div>
+                <div className="inline-flex px-4 py-1.5 rounded-full bg-brand-softblue text-brand-violet font-semibold text-sm">
+                  Cloud VoIP • Hosted PBX • UCaaS
                 </div>
-              </div>
-            </section>
-
-            <section className="py-12 px-4 bg-brand-softblue">
-              <div className="max-w-6xl mx-auto">
-                <SectionTitle
-                  eyebrow="Capability library"
-                  heading="Comprehensive feature set"
-                  subheading="Every Upscale deployment includes hundreds of business phone and contact-center capabilities at no additional cost."
-                />
-                <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                  {solutionFeatures.map((feature) => (
-                    <article
-                      key={feature.name}
-                      className="rounded-2xl border border-brand-navy/10 bg-white/90 p-5 shadow-card"
-                    >
-                      <h3 className="font-semibold text-brand-navy">
-                        {feature.name}
-                      </h3>
-                      <p className="mt-2 text-sm text-brand-charcoal/70">
-                        {feature.description}
-                      </p>
-                    </article>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            <section className="py-12 px-4">
-              <div className="max-w-5xl mx-auto rounded-[2rem] bg-gradient-to-r from-brand-navy to-brand-violet text-white p-10 shadow-[0_25px_60px_rgba(40,56,93,0.35)] flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                <div>
-                  <p className="uppercase tracking-[0.3em] text-xs text-white/70">
-                    Need tailored workflows?
-                  </p>
-                  <h2 className="font-display text-3xl md:text-[2.6rem] mt-3">
-                    Bundle these capabilities with our Rocket, Starship, or
-                    Satellite plans.
-                  </h2>
-                  <p className="mt-3 text-white/80">
-                    We’ll map required features to the right licenses and
-                    onboarding plan.
-                  </p>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  <Link
-                    to="/plans"
-                    className="inline-flex px-6 py-3 rounded-full bg-white text-brand-violet font-semibold"
-                  >
-                    Compare plans
-                  </Link>
-                  <Link
-                    to="/contact"
-                    className="inline-flex px-6 py-3 rounded-full border border-white/60 text-white font-semibold"
-                  >
-                    Book a consult
-                  </Link>
-                </div>
-              </div>
-            </section>
-          </>
-        ) : (
-          <>
-            <section id="hero" className="relative py-10 lg:py-12 px-4">
-              <div className="max-w-6xl mx-auto bg-white rounded-[2.5rem] px-6 md:px-12 py-12 shadow-[0_35px_80px_rgba(17,38,87,0.08)] relative overflow-hidden">
-                <div
-                  className="absolute -top-32 -left-32 w-72 h-72 bg-brand-violet/15 rounded-full blur-3xl"
-                  aria-hidden
-                />
-                <div
-                  className="absolute -bottom-32 -right-32 w-80 h-80 bg-brand-slate/10 rounded-full blur-3xl"
-                  aria-hidden
-                />
-                <div className="relative grid gap-10 md:grid-cols-2 items-center">
-                  <div>
-                    <div className="inline-flex px-4 py-1.5 rounded-full bg-brand-softblue text-brand-violet font-semibold text-sm">
-                      Cloud VoIP • Hosted PBX • UCaaS
-                    </div>
-                    <h1 className="font-display text-4xl lg:text-5xl text-brand-navy mt-6 leading-tight">
-                      We Handle The Call Better.
-                    </h1>
-                    <p className="mt-4 text-base text-brand-charcoal/70">
-                      Powerful VoIP and hosted PBX built for modern teams,
-                      remote offices, and fast-growing companies. Crystal-clear
-                      calls, seamless collaboration, and zero on-site hardware.
-                    </p>
-                    <div className="mt-8 flex flex-wrap gap-3">
-                      <Link
-                        to="/contact"
-                        className="inline-flex px-6 py-3 rounded-full bg-brand-violet text-white font-semibold shadow-lg"
-                      >
-                        Get Started
-                      </Link>
-                      <Link
-                        to="/contact"
-                        className="inline-flex px-6 py-3 rounded-full bg-white text-brand-violet font-semibold shadow-lg border-2 border-brand-violet"
-                      >
-                        Get Quote
-                      </Link>
-                      <Link
-                        to="/plans"
-                        className="inline-flex px-6 py-3 rounded-full border border-brand-violet text-brand-violet font-semibold"
-                      >
-                        See Plans & Pricing
-                      </Link>
-                    </div>
-                    <ul className="mt-6 space-y-2 text-brand-navy font-medium">
-                      <li>✔ 99.999% uptime & HD voice</li>
-                      <li>✔ Desktop, mobile, desk phone ready</li>
-                      <li>✔ Dedicated onboarding + migration</li>
-                    </ul>
-                  </div>
-
-                  <div className="border border-brand-navy/10 rounded-[2rem] bg-gradient-to-br from-brand-violet/15 via-white to-white shadow-card overflow-hidden">
-                    <div className="flex items-center justify-between px-6 py-4 text-sm text-brand-navy">
-                      <p>Upscale VoIP dashboard</p>
-                      <span className="px-3 py-1 rounded-full bg-white text-xs font-semibold">
-                        Live Queue
-                      </span>
-                    </div>
-                    <img
-                      src={heroImage}
-                      alt="Team collaborating on VoIP dashboard"
-                      className="w-full object-cover aspect-[4/3]"
-                    />
-                    <div className="flex flex-wrap gap-6 px-6 py-5 text-brand-navy/80 text-sm">
-                      <div>
-                        <strong className="text-2xl text-brand-violet block">
-                          350+
-                        </strong>
-                        Concurrent calls
-                      </div>
-                      <div>
-                        <strong className="text-2xl text-brand-violet block">
-                          4.9/5
-                        </strong>
-                        Client satisfaction
-                      </div>
-                      <div>
-                        <strong className="text-2xl text-brand-violet block">
-                          0
-                        </strong>
-                        Hardware installs
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section className="py-10 lg:py-12 px-4">
-              <div className="max-w-6xl mx-auto">
-                <h2 className="font-display text-4xl lg:text-5xl text-brand-navy text-center">
-                  Our Clients
-                </h2>
-                <div className="mt-4 overflow-hidden rounded-full border border-brand-navy/10 bg-white shadow-card">
-                  <div className="flex gap-10 px-8 py-4 items-center whitespace-nowrap animate-marquee">
-                    {clientLogos.concat(clientLogos).map((logo, index) => {
-                      const heightClass =
-                        logo.alt === "Glaubers"
-                          ? "h-14"
-                          : logo.alt === "Fogel"
-                            ? "h-10"
-                            : "h-12";
-                      return (
-                        <img
-                          key={`${logo.alt}-${index}`}
-                          src={logo.src}
-                          alt={logo.alt}
-                          className={`${heightClass} w-auto object-contain`}
-                        />
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section id="reliability" className="py-12 lg:py-14 px-4">
-              <div className="max-w-6xl mx-auto grid gap-10 md:grid-cols-[1.1fr_0.9fr] items-center">
-                <div>
-                  <SectionTitle
-                    eyebrow="Trusted by businesses who need reliability"
-                    heading="Enterprise-grade stability with flexible, modern workflows."
-                    subheading="Give your team the freedom to connect from anywhere — desktop, mobile, or desk phone — with enterprise-grade uptime and proactive monitoring."
-                  />
-                  <div className="mt-6 flex flex-wrap gap-3">
-                    <a
-                      className="btn inline-flex px-6 py-3 rounded-full bg-brand-violet text-white"
-                      href="#plans"
-                    >
-                      Plans & Pricing
-                    </a>
-                    <Link
-                      to="/contact"
-                      className="inline-flex px-6 py-3 rounded-full border border-brand-navy/20 text-brand-navy"
-                    >
-                      Request a Quote
-                    </Link>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4 rounded-[1.75rem] bg-gradient-to-br from-brand-navy to-brand-violet text-white p-8 shadow-[0_25px_60px_rgba(38,33,69,0.3)]">
-                  {reliabilityStats.map((stat) => (
-                    <div key={stat.label} className="text-center">
-                      <p className="text-3xl font-display">{stat.value}</p>
-                      <p className="text-xs uppercase tracking-[0.2em] text-white/70">
-                        {stat.label}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            <section
-              id="integrations"
-              className="py-12 lg:py-14 px-4 bg-brand-softblue"
-            >
-              <div className="max-w-6xl mx-auto grid gap-10 md:grid-cols-2 items-center">
-                <div>
-                  <SectionTitle
-                    eyebrow="Integrations You Love"
-                    heading="Unify data across your business stack."
-                    subheading="Plug Upscale VoIP into the tools your teams already use — CRMs, help desks, scheduling apps, analytics, and more."
-                  />
-                  <ul className="mt-6 space-y-3 text-brand-charcoal/80">
-                    <li>
-                      • Auto attendants, mobile & web apps, voicemail-to-email
-                    </li>
-                    <li>
-                      • Business text messaging, call recording, enhanced
-                      reporting
-                    </li>
-                    <li>
-                      • Video conferencing, team messaging, and priority
-                      assistance
-                    </li>
-                  </ul>
-                </div>
-                <div className="relative w-full aspect-square max-w-md mx-auto">
-                  <div className="absolute inset-0 rounded-full bg-white shadow-[0_25px_70px_rgba(40,56,93,0.12)] flex items-center justify-center">
-                    <div className="relative w-64 h-64 rounded-full bg-gradient-to-br from-brand-softblue to-white flex items-center justify-center">
-                      <div className="grid grid-cols-2 gap-5 p-6">
-                        {orbitIntegrations.map((logo, index) => (
-                          <div
-                            key={`core-${logo.alt}`}
-                            className={`flex items-center justify-center animate-float-${index + 1}`}
-                          >
-                            <img
-                              src={logo.src}
-                              alt={logo.alt}
-                              className="h-32 w-48 object-contain"
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="max-w-md mx-auto mt-6 w-full">
-                  <button className="text-sm font-semibold text-brand-violet border border-brand-violet/50 rounded-full px-5 py-2 bg-white shadow-card hover:bg-brand-violet hover:text-white transition">
-                    + More
-                  </button>
-                </div>
-              </div>
-            </section>
-
-            <section className="py-8 lg:py-10 px-4">
-              <div className="max-w-6xl mx-auto text-center">
-                <p className="uppercase tracking-[0.3em] text-xs text-brand-slate">
-                  Partner with the best
+                <h1 className="font-display text-4xl lg:text-5xl text-brand-navy mt-6 leading-tight">
+                  We Handle The Call Better.
+                </h1>
+                <p className="mt-4 text-base text-brand-charcoal/70">
+                  Powerful VoIP and hosted PBX built for modern teams, remote
+                  offices, and fast-growing companies. Crystal-clear calls,
+                  seamless collaboration, and zero on-site hardware.
                 </p>
-                <div className="mt-4">
-                  <img
-                    src={partnerBanner}
-                    alt="Partner logos"
-                    className="w-full max-w-4xl mx-auto object-contain"
-                  />
-                </div>
-              </div>
-            </section>
-
-            <section
-              id="plans"
-              className="pt-10 lg:pt-14 pb-8 lg:pb-12 px-4 bg-white"
-            >
-              <div className="max-w-6xl mx-auto">
-                <SectionTitle
-                  eyebrow="Plans & Pricing"
-                  heading="Straightforward pricing. Scales effortlessly."
-                />
-                <div className="mt-10 grid gap-5 md:grid-cols-3">
-                  {plans.map((plan) => (
-                    <article
-                      key={plan.title}
-                      className={`rounded-[1.75rem] border border-brand-navy/10 p-6 flex flex-col gap-4 min-h-[340px] ${
-                        plan.emphasis
-                          ? "bg-gradient-to-br from-brand-violet/15 via-white to-white shadow-[0_20px_60px_rgba(151,73,156,0.25)]"
-                          : "bg-brand-softblue/20"
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <div
-                          className={`p-2 rounded-full ${
-                            plan.emphasis
-                              ? "bg-brand-violet text-white"
-                              : "bg-brand-softblue text-brand-violet"
-                          }`}
-                        >
-                          {plan.title.includes("Rocket") && <RocketIcon />}
-                          {plan.title.includes("Starship") && <StarshipIcon />}
-                          {plan.title.includes("Satellite") && (
-                            <SatelliteIcon />
-                          )}
-                        </div>
-                        <div className="inline-flex px-4 py-1 rounded-full bg-white text-brand-navy font-semibold w-fit">
-                          {plan.title}
-                        </div>
-                      </div>
-                      <p className="font-semibold text-brand-navy">
-                        {plan.description}
-                      </p>
-                      <ul className="space-y-2 text-brand-charcoal/80 flex-1">
-                        {plan.features.map((feature) => (
-                          <li key={feature}>• {feature}</li>
-                        ))}
-                      </ul>
-                      <Link
-                        to="/contact"
-                        className={`inline-flex px-5 py-2 rounded-full font-semibold justify-center ${
-                          plan.emphasis
-                            ? "bg-brand-violet text-white"
-                            : "border border-brand-violet text-brand-violet"
-                        }`}
-                      >
-                        {plan.emphasis
-                          ? "Select Starship"
-                          : `Select ${plan.title.split(" · ")[0]}`}
-                      </Link>
-                    </article>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            <section id="apps" className="pt-8 lg:pt-12 pb-12 lg:pb-16 px-4">
-              <div className="max-w-6xl mx-auto grid gap-6 md:grid-cols-[1.2fr_0.8fr] items-start">
-                <div className="bg-white rounded-[1.75rem] border border-brand-navy/10 p-6 shadow-card space-y-6">
-                  <img
-                    src={new URL("../mobile.jpg", import.meta.url).href}
-                    alt="Mobile collaboration"
-                    className="rounded-[1.5rem] object-cover"
-                  />
-                  <p className="uppercase tracking-[0.3em] text-xs text-brand-slate">
-                    Mobile & Desktop Apps
-                  </p>
-                  <h3 className="font-display text-3xl text-brand-navy">
-                    Call, text, and meet from any device.
-                  </h3>
-                  <p className="text-brand-charcoal/70">
-                    Start calling immediately with secure softphones, intuitive
-                    mobile apps, and web dashboards tuned for operators and
-                    executives alike.
-                  </p>
+                <div className="mt-8 flex flex-wrap gap-3">
                   <Link
                     to="/contact"
-                    className="inline-flex px-6 py-3 rounded-full bg-brand-violet text-white font-semibold"
-                  >
-                    Launch your stack
-                  </Link>
-                </div>
-                <div className="bg-white rounded-[1.75rem] border border-brand-navy/10 p-6 shadow-card flex flex-col gap-4">
-                  <p className="uppercase tracking-[0.3em] text-xs text-brand-slate">
-                    Testimonials
-                  </p>
-                  <h3 className="font-display text-3xl text-brand-navy">
-                    What our clients say
-                  </h3>
-                  <div className="overflow-hidden relative h-[20rem] md:h-[22rem]">
-                    <div className="testimonial-track pr-2">
-                      {testimonialLoop.map((item, index) => (
-                        <div
-                          key={`${item.author}-${index}`}
-                          className="bg-brand-softblue/30 rounded-2xl p-6 border border-brand-navy/5 shadow-card min-h-[10rem]"
-                        >
-                          <blockquote className="text-brand-navy/90 italic">
-                            “{item.quote}”
-                          </blockquote>
-                          <p className="mt-3 font-semibold text-brand-violet">
-                            {item.author}
-                          </p>
-                          {item.title && (
-                            <p className="text-sm text-brand-charcoal/70">
-                              {item.title}
-                            </p>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section
-              id="faq"
-              className="pt-8 lg:pt-12 pb-12 lg:pb-16 px-4 bg-brand-softblue"
-            >
-              <div className="max-w-6xl mx-auto">
-                <SectionTitle
-                  eyebrow="FAQ"
-                  heading="Answers before you switch."
-                />
-                <div className="mt-8 grid gap-4 md:grid-cols-2">
-                  {faq.map((item) => (
-                    <FaqItem key={item.q} q={item.q} a={item.a} />
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            <section
-              id="contact"
-              className="pt-10 lg:pt-14 pb-12 lg:pb-16 px-4"
-            >
-              <div className="max-w-5xl mx-auto rounded-[2rem] bg-gradient-to-r from-brand-navy to-brand-violet text-white p-10 shadow-[0_25px_60px_rgba(40,56,93,0.35)] flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                <div>
-                  <p className="uppercase tracking-[0.3em] text-xs text-white/70">
-                    Ready to upgrade?
-                  </p>
-                  <h2 className="font-display text-3xl md:text-[2.6rem] mt-3">
-                    Get a modern VoIP system that grows with you.
-                  </h2>
-                  <p className="mt-3 text-white/80">
-                    Business communications built for clarity, reliability, and
-                    scale. Email us at{" "}
-                    <a
-                      href="mailto:sales@upscalevoip.com"
-                      className="underline hover:text-white/60"
-                    >
-                      sales@upscalevoip.com
-                    </a>
-                    .
-                  </p>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  <Link
-                    to="/plans"
-                    className="inline-flex px-6 py-3 rounded-full bg-white text-brand-violet font-semibold"
+                    className="inline-flex px-6 py-3 rounded-full bg-brand-violet text-white font-semibold shadow-lg"
                   >
                     Get Started
                   </Link>
-                  <a
-                    href="mailto:sales@upscalevoip.com"
-                    className="inline-flex px-6 py-3 rounded-full border border-white/60 text-white font-semibold hover:text-white/80 transition-colors"
+                  <Link
+                    to="/contact"
+                    className="inline-flex px-6 py-3 rounded-full bg-white text-brand-violet font-semibold shadow-lg border-2 border-brand-violet"
                   >
-                    Email sales@upscalevoip.com
-                  </a>
+                    Get Quote
+                  </Link>
+                  <Link
+                    to="/plans"
+                    className="inline-flex px-6 py-3 rounded-full border border-brand-violet text-brand-violet font-semibold"
+                  >
+                    See Plans & Pricing
+                  </Link>
+                </div>
+                <ul className="mt-6 space-y-2 text-brand-navy font-medium">
+                  <li>✔ 99.999% uptime & HD voice</li>
+                  <li>✔ Desktop, mobile, desk phone ready</li>
+                  <li>✔ Dedicated onboarding + migration</li>
+                </ul>
+              </div>
+
+              <div className="border border-brand-navy/10 rounded-[2rem] bg-gradient-to-br from-brand-violet/15 via-white to-white shadow-card overflow-hidden">
+                <div className="flex items-center justify-between px-6 py-4 text-sm text-brand-navy">
+                  <p>Upscale VoIP dashboard</p>
+                  <span className="px-3 py-1 rounded-full bg-white text-xs font-semibold">
+                    Live Queue
+                  </span>
+                </div>
+                <img
+                  src={heroImage}
+                  alt="Team collaborating on VoIP dashboard"
+                  className="w-full object-cover aspect-[4/3]"
+                />
+                <div className="flex flex-wrap gap-6 px-6 py-5 text-brand-navy/80 text-sm">
+                  <div>
+                    <strong className="text-2xl text-brand-violet block">
+                      350+
+                    </strong>
+                    Concurrent calls
+                  </div>
+                  <div>
+                    <strong className="text-2xl text-brand-violet block">
+                      4.9/5
+                    </strong>
+                    Client satisfaction
+                  </div>
+                  <div>
+                    <strong className="text-2xl text-brand-violet block">
+                      0
+                    </strong>
+                    Hardware installs
+                  </div>
                 </div>
               </div>
-            </section>
-          </>
-        )}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-10 lg:py-12 px-4">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="font-display text-4xl lg:text-5xl text-brand-navy text-center">
+              Our Clients
+            </h2>
+            <div className="mt-4 overflow-hidden rounded-full border border-brand-navy/10 bg-white shadow-card">
+              <div className="flex gap-10 px-8 py-4 items-center whitespace-nowrap animate-marquee">
+                {clientLogos.concat(clientLogos).map((logo, index) => {
+                  const heightClass =
+                    logo.alt === "Glaubers"
+                      ? "h-14"
+                      : logo.alt === "Fogel"
+                        ? "h-10"
+                        : "h-12";
+                  return (
+                    <img
+                      key={`${logo.alt}-${index}`}
+                      src={logo.src}
+                      alt={logo.alt}
+                      className={`${heightClass} w-auto object-contain`}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="reliability" className="py-12 lg:py-14 px-4">
+          <div className="max-w-6xl mx-auto grid gap-10 md:grid-cols-[1.1fr_0.9fr] items-center">
+            <div>
+              <SectionTitle
+                eyebrow="Trusted by businesses who need reliability"
+                heading="Enterprise-grade stability with flexible, modern workflows."
+                subheading="Give your team the freedom to connect from anywhere — desktop, mobile, or desk phone — with enterprise-grade uptime and proactive monitoring."
+              />
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  className="btn inline-flex px-6 py-3 rounded-full bg-brand-violet text-white"
+                  href="#plans"
+                >
+                  Plans & Pricing
+                </a>
+                <Link
+                  to="/contact"
+                  className="inline-flex px-6 py-3 rounded-full border border-brand-navy/20 text-brand-navy"
+                >
+                  Request a Quote
+                </Link>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4 rounded-[1.75rem] bg-gradient-to-br from-brand-navy to-brand-violet text-white p-8 shadow-[0_25px_60px_rgba(38,33,69,0.3)]">
+              {reliabilityStats.map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <p className="text-3xl font-display">{stat.value}</p>
+                  <p className="text-xs uppercase tracking-[0.2em] text-white/70">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="integrations"
+          className="py-12 lg:py-14 px-4 bg-brand-softblue"
+        >
+          <div className="max-w-6xl mx-auto grid gap-10 md:grid-cols-2 items-center">
+            <div>
+              <SectionTitle
+                eyebrow="Integrations You Love"
+                heading="Unify data across your business stack."
+                subheading="Plug Upscale VoIP into the tools your teams already use — CRMs, help desks, scheduling apps, analytics, and more."
+              />
+              <ul className="mt-6 space-y-3 text-brand-charcoal/80">
+                <li>
+                  • Auto attendants, mobile & web apps, voicemail-to-email
+                </li>
+                <li>
+                  • Business text messaging, call recording, enhanced reporting
+                </li>
+                <li>
+                  • Video conferencing, team messaging, and priority assistance
+                </li>
+              </ul>
+            </div>
+            <div className="relative w-full aspect-square max-w-md mx-auto">
+              <div className="absolute inset-0 rounded-full bg-white shadow-[0_25px_70px_rgba(40,56,93,0.12)] flex items-center justify-center">
+                <div className="relative w-64 h-64 rounded-full bg-gradient-to-br from-brand-softblue to-white flex items-center justify-center">
+                  <div className="grid grid-cols-2 gap-5 p-6">
+                    {orbitIntegrations.map((logo, index) => (
+                      <div
+                        key={`core-${logo.alt}`}
+                        className={`flex items-center justify-center animate-float-${index + 1}`}
+                      >
+                        <img
+                          src={logo.src}
+                          alt={logo.alt}
+                          className="h-32 w-48 object-contain"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="max-w-md mx-auto mt-6 w-full">
+              <button className="text-sm font-semibold text-brand-violet border border-brand-violet/50 rounded-full px-5 py-2 bg-white shadow-card hover:bg-brand-violet hover:text-white transition">
+                + More
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-8 lg:py-10 px-4">
+          <div className="max-w-6xl mx-auto text-center">
+            <p className="uppercase tracking-[0.3em] text-xs text-brand-slate">
+              Partner with the best
+            </p>
+            <div className="mt-4">
+              <img
+                src={partnerBanner}
+                alt="Partner logos"
+                className="w-full max-w-4xl mx-auto object-contain"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="plans"
+          className="pt-10 lg:pt-14 pb-8 lg:pb-12 px-4 bg-white"
+        >
+          <div className="max-w-6xl mx-auto">
+            <SectionTitle
+              eyebrow="Plans & Pricing"
+              heading="Straightforward pricing. Scales effortlessly."
+            />
+            <div className="mt-10 grid gap-5 md:grid-cols-3">
+              {plans.map((plan) => (
+                <article
+                  key={plan.title}
+                  className={`rounded-[1.75rem] border border-brand-navy/10 p-6 flex flex-col gap-4 min-h-[340px] ${
+                    plan.emphasis
+                      ? "bg-gradient-to-br from-brand-violet/15 via-white to-white shadow-[0_20px_60px_rgba(151,73,156,0.25)]"
+                      : "bg-brand-softblue/20"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`p-2 rounded-full ${
+                        plan.emphasis
+                          ? "bg-brand-violet text-white"
+                          : "bg-brand-softblue text-brand-violet"
+                      }`}
+                    >
+                      {plan.title.includes("Rocket") && <RocketIcon />}
+                      {plan.title.includes("Starship") && <StarshipIcon />}
+                      {plan.title.includes("Satellite") && <SatelliteIcon />}
+                    </div>
+                    <div className="inline-flex px-4 py-1 rounded-full bg-white text-brand-navy font-semibold w-fit">
+                      {plan.title}
+                    </div>
+                  </div>
+                  <p className="font-semibold text-brand-navy">
+                    {plan.description}
+                  </p>
+                  <ul className="space-y-2 text-brand-charcoal/80 flex-1">
+                    {plan.features.map((feature) => (
+                      <li key={feature}>• {feature}</li>
+                    ))}
+                  </ul>
+                  <Link
+                    to="/contact"
+                    className={`inline-flex px-5 py-2 rounded-full font-semibold justify-center ${
+                      plan.emphasis
+                        ? "bg-brand-violet text-white"
+                        : "border border-brand-violet text-brand-violet"
+                    }`}
+                  >
+                    {plan.emphasis
+                      ? "Select Starship"
+                      : `Select ${plan.title.split(" · ")[0]}`}
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="apps" className="pt-8 lg:pt-12 pb-12 lg:pb-16 px-4">
+          <div className="max-w-6xl mx-auto grid gap-6 md:grid-cols-[1.2fr_0.8fr] items-start">
+            <div className="bg-white rounded-[1.75rem] border border-brand-navy/10 p-6 shadow-card space-y-6">
+              <img
+                src={new URL("../mobile.jpg", import.meta.url).href}
+                alt="Mobile collaboration"
+                className="rounded-[1.5rem] object-cover"
+              />
+              <p className="uppercase tracking-[0.3em] text-xs text-brand-slate">
+                Mobile & Desktop Apps
+              </p>
+              <h3 className="font-display text-3xl text-brand-navy">
+                Call, text, and meet from any device.
+              </h3>
+              <p className="text-brand-charcoal/70">
+                Start calling immediately with secure softphones, intuitive
+                mobile apps, and web dashboards tuned for operators and
+                executives alike.
+              </p>
+              <Link
+                to="/contact"
+                className="inline-flex px-6 py-3 rounded-full bg-brand-violet text-white font-semibold"
+              >
+                Launch your stack
+              </Link>
+            </div>
+            <div className="bg-white rounded-[1.75rem] border border-brand-navy/10 p-6 shadow-card flex flex-col gap-4">
+              <p className="uppercase tracking-[0.3em] text-xs text-brand-slate">
+                Testimonials
+              </p>
+              <h3 className="font-display text-3xl text-brand-navy">
+                What our clients say
+              </h3>
+              <div className="overflow-hidden relative h-[20rem] md:h-[22rem]">
+                <div className="testimonial-track pr-2">
+                  {testimonialLoop.map((item, index) => (
+                    <div
+                      key={`${item.author}-${index}`}
+                      className="bg-brand-softblue/30 rounded-2xl p-6 border border-brand-navy/5 shadow-card min-h-[10rem]"
+                    >
+                      <blockquote className="text-brand-navy/90 italic">
+                        “{item.quote}”
+                      </blockquote>
+                      <p className="mt-3 font-semibold text-brand-violet">
+                        {item.author}
+                      </p>
+                      {item.title && (
+                        <p className="text-sm text-brand-charcoal/70">
+                          {item.title}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="faq"
+          className="pt-8 lg:pt-12 pb-12 lg:pb-16 px-4 bg-brand-softblue"
+        >
+          <div className="max-w-6xl mx-auto">
+            <SectionTitle eyebrow="FAQ" heading="Answers before you switch." />
+            <div className="mt-8 grid gap-4 md:grid-cols-2">
+              {faq.map((item) => (
+                <FaqItem key={item.q} q={item.q} a={item.a} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="pt-10 lg:pt-14 pb-12 lg:pb-16 px-4">
+          <div className="max-w-5xl mx-auto rounded-[2rem] bg-gradient-to-r from-brand-navy to-brand-violet text-white p-10 shadow-[0_25px_60px_rgba(40,56,93,0.35)] flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="uppercase tracking-[0.3em] text-xs text-white/70">
+                Ready to upgrade?
+              </p>
+              <h2 className="font-display text-3xl md:text-[2.6rem] mt-3">
+                Get a modern VoIP system that grows with you.
+              </h2>
+              <p className="mt-3 text-white/80">
+                Business communications built for clarity, reliability, and
+                scale. Email us at{" "}
+                <a
+                  href="mailto:sales@upscalevoip.com"
+                  className="underline hover:text-white/60"
+                >
+                  sales@upscalevoip.com
+                </a>
+                .
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                to="/plans"
+                className="inline-flex px-6 py-3 rounded-full bg-white text-brand-violet font-semibold"
+              >
+                Get Started
+              </Link>
+              <a
+                href="mailto:sales@upscalevoip.com"
+                className="inline-flex px-6 py-3 rounded-full border border-white/60 text-white font-semibold hover:text-white/80 transition-colors"
+              >
+                Email sales@upscalevoip.com
+              </a>
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />
@@ -1399,11 +1367,8 @@ export default function App() {
     <Router basename="/upscale-voip-website">
       <NavBar />
       <Routes>
-        <Route path="/" element={<HomePage isSolutionsPage={false} />} />
-        <Route
-          path="/solutions"
-          element={<HomePage isSolutionsPage={true} />}
-        />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/solutions" element={<Solutions />} />
         <Route path="/plans" element={<Plans />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy" element={<Privacy />} />
