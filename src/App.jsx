@@ -95,6 +95,20 @@ const orbitIntegrations = [
     duration: "23s",
     delay: "-8s",
   },
+  {
+    alt: "Nava",
+    file: "oracle logo.png",
+    radius: "140px",
+    duration: "25s",
+    delay: "-4s",
+  },
+  {
+    alt: "Teammate",
+    file: "oracle logo.png",
+    radius: "130px",
+    duration: "21s",
+    delay: "-7s",
+  },
 ].map((logo) => ({
   ...logo,
   src: new URL(`../Integrations/${logo.file}`, import.meta.url).href,
@@ -1132,6 +1146,14 @@ function HomePage() {
                 subheading="Plug Upscale VoIP into the tools your teams already use — CRMs, help desks, scheduling apps, analytics, and more."
               />
               <ul className="mt-6 space-y-3 text-brand-charcoal/80">
+                <li>
+                  • Native integrations with HubSpot, Salesforce, Nava,
+                  Teammate, and more
+                </li>
+                <li>
+                  • Connect with most major CRMs for click-to-call, screen pops,
+                  and activity logging
+                </li>
                 <li>
                   • Auto attendants, mobile & web apps, voicemail-to-email
                 </li>
