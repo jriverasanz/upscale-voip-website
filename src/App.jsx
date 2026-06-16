@@ -775,28 +775,30 @@ function NavBar() {
               >
                 <NavLink to={link.href} label={link.label} />
                 {solutionsOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-brand-navy/10 py-2 z-50">
-                    {solutionsDropdown.map((item) => (
-                      <Link
-                        key={item.href}
-                        to={item.href}
-                        className={`flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-brand-softblue transition-colors ${
-                          location.pathname + location.search === item.href ||
-                          (location.pathname === "/solutions" &&
-                            item.href === "/solutions")
-                            ? "text-brand-violet font-semibold"
-                            : "text-brand-charcoal"
-                        }`}
-                        onClick={() => setSolutionsOpen(false)}
-                      >
-                        <span>{item.label}</span>
-                        {item.isNew && (
-                          <span className="ml-auto text-[10px] uppercase tracking-wider bg-brand-violet/10 text-brand-violet px-2 py-0.5 rounded-full font-semibold">
-                            New
-                          </span>
-                        )}
-                      </Link>
-                    ))}
+                  <div className="absolute top-full left-0 pt-2 w-64 z-50">
+                    <div className="bg-white rounded-xl shadow-xl border border-brand-navy/10 py-2">
+                      {solutionsDropdown.map((item) => (
+                        <Link
+                          key={item.href}
+                          to={item.href}
+                          className={`flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-brand-softblue transition-colors ${
+                            location.pathname + location.search === item.href ||
+                            (location.pathname === "/solutions" &&
+                              item.href === "/solutions")
+                              ? "text-brand-violet font-semibold"
+                              : "text-brand-charcoal"
+                          }`}
+                          onClick={() => setSolutionsOpen(false)}
+                        >
+                          <span>{item.label}</span>
+                          {item.isNew && (
+                            <span className="ml-auto text-[10px] uppercase tracking-wider bg-brand-violet/10 text-brand-violet px-2 py-0.5 rounded-full font-semibold">
+                              New
+                            </span>
+                          )}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
