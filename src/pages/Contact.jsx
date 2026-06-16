@@ -204,9 +204,18 @@ function Contact() {
             </form>
           </div>
 
-          <div className="mt-12 text-center">
+          <div className="mt-12 text-center space-y-4">
             <p className="text-brand-charcoal/60 text-sm">
-              Or call us directly at{" "}
+              Or email us directly at{" "}
+              <a
+                href="mailto:sales@upscalevoip.com"
+                className="text-brand-violet font-semibold hover:underline"
+              >
+                sales@upscalevoip.com
+              </a>
+            </p>
+            <p className="text-brand-charcoal/60 text-sm">
+              Or call us at{" "}
               <a
                 href="tel:+18454442344"
                 className="text-brand-violet font-semibold hover:underline"
