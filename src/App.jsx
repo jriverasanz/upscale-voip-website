@@ -764,7 +764,7 @@ function NavBar() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex gap-1 text-sm text-brand-navy">
+        <nav className="hidden md:flex gap-6 text-sm text-brand-navy">
           {navLinks.map((link) =>
             link.hasDropdown ? (
               <div
