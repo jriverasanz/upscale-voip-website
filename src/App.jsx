@@ -1388,7 +1388,7 @@ function HomePage() {
 
 export default function App() {
   return (
-    <Router basename="/upscale-voip-website">
+    <Router basename={import.meta.env.BASE_URL}>
       <NavBar />
       <Routes>
         <Route path="/" element={<HomePage />} />

@@ -3,8 +3,9 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/upscale-voip-website/",
+  // Use root base on Vercel, subpath base on GitHub Pages
+  base: process.env.VERCEL ? "/" : "/upscale-voip-website/",
   server: {
-    port: 5173
-  }
+    port: 5173,
+  },
 });
