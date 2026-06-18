@@ -54,60 +54,26 @@ const orbitIntegrations = [
   {
     alt: "Salesforce",
     file: "salesforce.png",
-    radius: "165px",
-    duration: "22s",
-    delay: "0s",
   },
   {
     alt: "Zendesk",
     file: "Zendesk-Logo.webp",
-    radius: "150px",
-    duration: "24s",
-    delay: "-3s",
   },
   {
     alt: "HubSpot",
     file: "hubspot.png",
-    radius: "135px",
-    duration: "26s",
-    delay: "-6s",
-    reverse: true,
   },
   {
     alt: "monday.com",
     file: "monday.png",
-    radius: "120px",
-    duration: "20s",
-    delay: "-2s",
-    reverse: true,
   },
   {
     alt: "Microsoft Teams",
     file: "teams.webp",
-    radius: "95px",
-    duration: "18s",
-    delay: "-5s",
   },
   {
-    alt: "Oracle",
+    alt: "Oracle NetSuite",
     file: "oracle logo.png",
-    radius: "110px",
-    duration: "23s",
-    delay: "-8s",
-  },
-  {
-    alt: "Nava",
-    file: "oracle logo.png",
-    radius: "140px",
-    duration: "25s",
-    delay: "-4s",
-  },
-  {
-    alt: "Teammate",
-    file: "oracle logo.png",
-    radius: "130px",
-    duration: "21s",
-    delay: "-7s",
   },
 ].map((logo) => ({
   ...logo,
@@ -824,7 +790,9 @@ function NavBar() {
 
         <div className="flex gap-2 items-center">
           <a
-            href="#"
+            href="https://login.simplelogin.net/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden md:inline-flex px-4 py-2 rounded-full border border-brand-navy/20 text-brand-navy text-sm hover:border-brand-navy/40 transition-colors"
           >
             Client Login
@@ -921,7 +889,9 @@ function NavBar() {
             Get Started
           </Link>
           <a
-            href="#"
+            href="https://login.simplelogin.net/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-4 py-3 rounded-full border border-brand-navy/20 text-brand-navy font-semibold text-center"
           >
             Client Login
@@ -1147,8 +1117,8 @@ function HomePage() {
               />
               <ul className="mt-6 space-y-3 text-brand-charcoal/80">
                 <li>
-                  • Native integrations with HubSpot, Salesforce, Nava,
-                  Teammate, and more
+                  • Native integrations with HubSpot, Salesforce, Zendesk, and
+                  more
                 </li>
                 <li>
                   • Connect with most major CRMs for click-to-call, screen pops,
