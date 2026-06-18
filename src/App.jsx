@@ -1334,17 +1334,11 @@ function HomePage() {
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link
-                to="/plans"
+              <a
+                href="mailto:sales@upscalevoip.com"
                 className="inline-flex px-6 py-3 rounded-full bg-white text-brand-violet font-semibold"
               >
                 Get Started
-              </Link>
-              <a
-                href="mailto:sales@upscalevoip.com"
-                className="inline-flex px-6 py-3 rounded-full border border-white/60 text-white font-semibold hover:text-white/80 transition-colors"
-              >
-                Email sales@upscalevoip.com
               </a>
             </div>
           </div>
