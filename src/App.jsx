@@ -797,13 +797,6 @@ function NavBar() {
           >
             Client Login
           </a>
-          <Link
-            to="/contact"
-            className="hidden md:inline-flex px-4 py-2 rounded-full bg-brand-violet text-white text-sm shadow-lg hover:bg-brand-violet/90 transition-colors"
-          >
-            Get Started
-          </Link>
-
           {/* Hamburger button */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -882,12 +875,6 @@ function NavBar() {
             ),
           )}
           <hr className="my-2 border-brand-navy/10" />
-          <Link
-            to="/contact"
-            className="mt-2 px-4 py-3 rounded-full bg-brand-violet text-white font-semibold text-center shadow-lg"
-          >
-            Get Started
-          </Link>
           <a
             href="https://login.simplelogin.net/"
             target="_blank"
