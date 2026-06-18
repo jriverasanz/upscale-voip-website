@@ -1333,10 +1333,10 @@ function HomePage() {
                 .
               </p>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex-shrink-0">
               <a
                 href="mailto:sales@upscalevoip.com"
-                className="inline-flex px-6 py-3 rounded-full bg-white text-brand-violet font-semibold"
+                className="inline-flex px-6 py-3 rounded-full bg-white text-brand-violet font-semibold whitespace-nowrap"
               >
                 Get Started
               </a>
