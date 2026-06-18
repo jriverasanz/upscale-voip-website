@@ -979,12 +979,6 @@ function HomePage() {
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link
                     to="/contact"
-                    className="inline-flex px-6 py-3 rounded-full bg-brand-violet text-white font-semibold shadow-lg"
-                  >
-                    Get Started
-                  </Link>
-                  <Link
-                    to="/contact"
                     className="inline-flex px-6 py-3 rounded-full bg-white text-brand-violet font-semibold shadow-lg border-2 border-brand-violet"
                   >
                     Get Quote
