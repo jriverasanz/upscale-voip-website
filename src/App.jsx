@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Plans from "./pages/Plans";
 import Solutions from "./pages/Solutions";
+import IntegrationsPage from "./pages/Integrations";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -676,7 +677,7 @@ function NavBar() {
     { label: "Home", href: "/" },
     { label: "Solutions", href: "/solutions", hasDropdown: true },
     { label: "Plans", href: "/plans" },
-    { label: "Integrations", href: "/#integrations" },
+    { label: "Integrations", href: "/integrations" },
     { label: "Apps", href: "/#apps" },
     { label: "Contact", href: "/contact" },
   ];
@@ -1137,9 +1138,12 @@ function HomePage() {
               </div>
             </div>
             <div className="max-w-md mx-auto mt-6 w-full">
-              <button className="text-sm font-semibold text-brand-violet border border-brand-violet/50 rounded-full px-5 py-2 bg-white shadow-card hover:bg-brand-violet hover:text-white transition">
-                + More
-              </button>
+              <Link
+                to="/integrations"
+                className="inline-block text-sm font-semibold text-brand-violet border border-brand-violet/50 rounded-full px-5 py-2 bg-white shadow-card hover:bg-brand-violet hover:text-white transition"
+              >
+                View All Integrations
+              </Link>
             </div>
           </div>
         </section>
@@ -1338,6 +1342,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/solutions" element={<Solutions />} />
+        <Route path="/integrations" element={<IntegrationsPage />} />
         <Route path="/plans" element={<Plans />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy" element={<Privacy />} />
