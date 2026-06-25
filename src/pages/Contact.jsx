@@ -19,6 +19,7 @@ function Contact() {
     }));
   };
 
+  const [consent, setConsent] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
@@ -27,7 +28,7 @@ function Contact() {
       `Quote Request from ${formData.companyName}`,
     );
     const body = encodeURIComponent(
-      `New Quote Request\n\nFull Name: ${formData.fullName}\nCompany: ${formData.companyName}\nEmail: ${formData.email}\nPhone: ${formData.phoneNumber}\nUsers Required: ${formData.usersRequired}\nNumbers to Port: ${formData.numbersToPort}`,
+      `New Quote Request\n\nFull Name: ${formData.fullName}\nCompany: ${formData.companyName}\nEmail: ${formData.email}\nPhone: ${formData.phoneNumber}\nUsers Required: ${formData.usersRequired}\nNumbers to Port: ${formData.numbersToPort}\nConsent to Contact: Yes`,
     );
     window.location.href = `mailto:sales@upscalevoip.com?subject=${subject}&body=${body}`;
     setSubmitted(true);
@@ -180,6 +181,24 @@ function Contact() {
                     <option value="100+">100+ numbers</option>
                   </select>
                 </div>
+              </div>
+
+              <div className="pt-2">
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
+                    required
+                    className="mt-1 w-4 h-4 rounded border-brand-navy/30 text-brand-violet focus:ring-brand-violet"
+                  />
+                  <span className="text-sm text-brand-charcoal/70 leading-relaxed">
+                    I consent to receive communications from Upscale VoIP via
+                    email, SMS, phone, or other electronic means regarding my
+                    inquiry and related products and services. I understand that
+                    I can unsubscribe at any time.
+                  </span>
+                </label>
               </div>
 
               {submitted ? (
