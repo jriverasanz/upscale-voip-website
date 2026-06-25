@@ -9,6 +9,7 @@ import {
 import Plans from "./pages/Plans";
 import Solutions from "./pages/Solutions";
 import IntegrationsPage from "./pages/Integrations";
+import AppsPage from "./pages/Apps";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -678,7 +679,7 @@ function NavBar() {
     { label: "Solutions", href: "/solutions", hasDropdown: true },
     { label: "Plans", href: "/plans" },
     { label: "Integrations", href: "/integrations" },
-    { label: "Apps", href: "/#apps" },
+    { label: "Apps", href: "/apps" },
     { label: "Contact", href: "/contact" },
   ];
 
@@ -1444,6 +1445,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/solutions" element={<Solutions />} />
         <Route path="/integrations" element={<IntegrationsPage />} />
+        <Route path="/apps" element={<AppsPage />} />
         <Route path="/plans" element={<Plans />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy" element={<Privacy />} />
