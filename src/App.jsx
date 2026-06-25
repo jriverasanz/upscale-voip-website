@@ -46,8 +46,8 @@ const clientLogos = [
 }));
 
 const reliabilityStats = [
-  { label: "client businesses", value: "34" },
-  { label: "active users", value: "250+" },
+  { label: "client businesses", value: "50+" },
+  { label: "active users", value: "300+" },
   { label: "tech support", value: "24/7" },
   { label: "average latency", value: "50 ms" },
 ];
