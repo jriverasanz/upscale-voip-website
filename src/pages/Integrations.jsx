@@ -41,10 +41,7 @@ const integrations = [
   },
 ].map((integration) => ({
   ...integration,
-  src: new URL(
-    `../Integrations/${integration.file}`,
-    import.meta.url
-  ).href,
+  src: new URL(`../../Integrations/${integration.file}`, import.meta.url).href,
 }));
 
 const otherCRMs = [
@@ -141,11 +138,11 @@ const Integrations = () => {
                   key={integration.name}
                   className="bg-white rounded-2xl border border-brand-navy/10 p-6 hover:shadow-md hover:border-brand-violet/20 transition-all duration-200"
                 >
-                  <div className="h-14 flex items-center mb-4">
+                  <div className="h-16 flex items-center justify-center bg-gray-50 rounded-xl mb-4 p-3">
                     <img
                       src={integration.src}
                       alt={integration.name}
-                      className="h-12 w-auto max-w-[140px] object-contain"
+                      className="h-10 w-auto max-w-[130px] object-contain"
                     />
                   </div>
                   <h3 className="font-semibold text-brand-navy">
