@@ -3,16 +3,46 @@ import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 
 const snapGoFeatures = [
-  { name: "SIP Softphone", desc: "Make and receive calls over SIP directly from your mobile device with HD voice quality." },
-  { name: "Contact Management", desc: "Access and manage your portal contacts and device contacts all in one place." },
-  { name: "Visual Voicemail", desc: "View, play, save, and delete voicemail messages directly from a visual interface." },
-  { name: "Answering Rules", desc: "Manage and reorder your answering rules on the go — sort, edit, and update." },
-  { name: "Call History", desc: "View inbound, outbound, and missed calls with caller ID, duration, and timestamps." },
-  { name: "Presence", desc: "See real-time availability of your colleagues and extensions across the system." },
-  { name: "Extension Dialing", desc: "Dial internal extensions quickly and easily from the dial pad or contacts." },
-  { name: "Call Transfer", desc: "Transfer active calls with an announcement to another extension or device." },
-  { name: "Call Recording", desc: "Start and stop call recordings on demand during active calls." },
-  { name: "Switch Call to New Device", desc: "Move an active call from your mobile app to another device seamlessly." },
+  {
+    name: "SIP Softphone",
+    desc: "Make and receive calls over SIP directly from your mobile device with HD voice quality.",
+  },
+  {
+    name: "Contact Management",
+    desc: "Access and manage your portal contacts and device contacts all in one place.",
+  },
+  {
+    name: "Visual Voicemail",
+    desc: "View, play, save, and delete voicemail messages directly from a visual interface.",
+  },
+  {
+    name: "Answering Rules",
+    desc: "Manage and reorder your answering rules on the go — sort, edit, and update.",
+  },
+  {
+    name: "Call History",
+    desc: "View inbound, outbound, and missed calls with caller ID, duration, and timestamps.",
+  },
+  {
+    name: "Presence",
+    desc: "See real-time availability of your colleagues and extensions across the system.",
+  },
+  {
+    name: "Extension Dialing",
+    desc: "Dial internal extensions quickly and easily from the dial pad or contacts.",
+  },
+  {
+    name: "Call Transfer",
+    desc: "Transfer active calls with an announcement to another extension or device.",
+  },
+  {
+    name: "Call Recording",
+    desc: "Start and stop call recordings on demand during active calls.",
+  },
+  {
+    name: "Switch Call to New Device",
+    desc: "Move an active call from your mobile app to another device seamlessly.",
+  },
 ];
 
 const callFunctions = [
@@ -63,7 +93,11 @@ const Apps = () => {
                     href="#"
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-black text-white font-semibold hover:bg-gray-800 transition-colors shadow-lg"
                   >
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <svg
+                      className="w-5 h-5"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
                       <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
                     </svg>
                     Download for iOS
@@ -72,7 +106,11 @@ const Apps = () => {
                     href="#"
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-black text-white font-semibold hover:bg-gray-800 transition-colors shadow-lg"
                   >
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <svg
+                      className="w-5 h-5"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
                       <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 010 1.732l-2.807 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z" />
                     </svg>
                     Download for Android
@@ -85,77 +123,12 @@ const Apps = () => {
                     <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-brand-violet to-brand-navy flex items-center justify-center mx-auto shadow-lg">
                       <span className="text-white font-bold text-2xl">SG</span>
                     </div>
-                    <p className="mt-3 text-sm font-semibold text-brand-navy">Snap.Go</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Getting Started / Login */}
-        <section className="py-12 px-4 bg-brand-softblue/30">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="font-display text-3xl md:text-4xl text-brand-navy">
-                Getting Started
-              </h2>
-              <p className="mt-3 text-brand-charcoal/70 max-w-2xl mx-auto">
-                Download Snap.Go from the App Store or Google Play, then log in
-                with your Upscale VoIP credentials.
-              </p>
-            </div>
-            <div className="max-w-2xl mx-auto bg-white rounded-2xl border border-brand-navy/10 p-8 shadow-card">
-              <h3 className="font-semibold text-lg text-brand-navy mb-4">
-                First-Time Login
-              </h3>
-              <p className="text-sm text-brand-charcoal/70 mb-6">
-                When launching Snap.Go for the first time, you will be presented
-                with the login screen. Enter the following details:
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-center gap-4 p-4 bg-brand-softblue/50 rounded-xl">
-                  <div className="w-10 h-10 rounded-full bg-brand-violet/10 flex items-center justify-center text-brand-violet font-bold">
-                    1
-                  </div>
-                  <div>
-                    <p className="font-semibold text-brand-navy text-sm">
-                      Host / ID
-                    </p>
-                    <p className="text-brand-violet font-mono text-sm">mypbx</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4 p-4 bg-brand-softblue/50 rounded-xl">
-                  <div className="w-10 h-10 rounded-full bg-brand-violet/10 flex items-center justify-center text-brand-violet font-bold">
-                    2
-                  </div>
-                  <div>
-                    <p className="font-semibold text-brand-navy text-sm">
-                      Login
-                    </p>
-                    <p className="text-brand-violet font-mono text-sm">
-                      ext@pbx-id
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4 p-4 bg-brand-softblue/50 rounded-xl">
-                  <div className="w-10 h-10 rounded-full bg-brand-violet/10 flex items-center justify-center text-brand-violet font-bold">
-                    3
-                  </div>
-                  <div>
-                    <p className="font-semibold text-brand-navy text-sm">
-                      Password
-                    </p>
-                    <p className="text-brand-violet font-mono text-sm">
-                      portal password
+                    <p className="mt-3 text-sm font-semibold text-brand-navy">
+                      Snap.Go
                     </p>
                   </div>
                 </div>
               </div>
-              <p className="mt-6 text-sm text-brand-charcoal/60 italic">
-                After the initial login, this data will be stored and not be
-                requested again unless you log out.
-              </p>
             </div>
           </div>
         </section>
@@ -289,7 +262,8 @@ const Apps = () => {
                 {/* Side Nav */}
                 <div className="bg-white rounded-2xl border border-brand-navy/10 p-6 shadow-card">
                   <h3 className="font-semibold text-lg text-brand-navy flex items-center gap-2">
-                    <span className="text-brand-violet">☰</span> Side Navigation
+                    <span className="text-brand-violet">☰</span> Side
+                    Navigation
                   </h3>
                   <p className="mt-2 text-sm text-brand-charcoal/70 leading-relaxed">
                     Open the side menu by pressing the Menu icon or swiping
@@ -335,7 +309,11 @@ const Apps = () => {
                 href="#"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-brand-violet font-semibold hover:bg-gray-100 transition-colors"
               >
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <svg
+                  className="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
                   <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
                 </svg>
                 iOS App Store
@@ -344,7 +322,11 @@ const Apps = () => {
                 href="#"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-brand-violet font-semibold hover:bg-gray-100 transition-colors"
               >
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <svg
+                  className="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
                   <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 010 1.732l-2.807 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z" />
                 </svg>
                 Google Play
