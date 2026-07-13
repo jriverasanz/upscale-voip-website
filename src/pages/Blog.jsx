@@ -20,6 +20,7 @@ const blogPosts = [
     date: "June 15, 2025",
     readTime: "7 min read",
     slug: "hosted-pbx-vs-traditional-phone-systems",
+    image: new URL("../../blog 2.jpg", import.meta.url).href,
     category: "Hosted PBX",
   },
   {
