@@ -19,6 +19,7 @@ const blogPosts = [
       "We break down the costs, features, and scalability of hosted PBX versus on-premise systems so you can make an informed decision for your business.",
     date: "June 15, 2025",
     readTime: "7 min read",
+    slug: "hosted-pbx-vs-traditional-phone-systems",
     category: "Hosted PBX",
   },
   {

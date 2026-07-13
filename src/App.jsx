@@ -1349,10 +1349,7 @@ export default function App() {
         <Route path="/integrations" element={<IntegrationsPage />} />
         <Route path="/apps" element={<AppsPage />} />
         <Route path="/blog" element={<Blog />} />
-        <Route
-          path="/blog/why-your-business-needs-a-voip-phone-system-in-2026"
-          element={<BlogArticle />}
-        />
+        <Route path="/blog/:slug" element={<BlogArticle />} />
         <Route path="/plans" element={<Plans />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy" element={<Privacy />} />
