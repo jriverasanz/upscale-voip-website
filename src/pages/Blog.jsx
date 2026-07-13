@@ -40,6 +40,7 @@ const blogPosts = [
     date: "May 10, 2025",
     readTime: "4 min read",
     slug: "how-to-reduce-call-abandonment-rates-in-your-contact-center",
+    image: new URL("../../blog 4 (2).jpg", import.meta.url).href,
     category: "Contact Center",
   },
   {

@@ -785,6 +785,7 @@ const articles = {
   },
   "how-to-reduce-call-abandonment-rates-in-your-contact-center": {
     category: "Contact Center",
+    image: new URL("../../blog 4 (2).jpg", import.meta.url).href,
     title: "How to Reduce Call Abandonment Rates in Your Contact Center",
     date: "May 10, 2025",
     readTime: "4 min read",
