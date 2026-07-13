@@ -11,6 +11,7 @@ import Solutions from "./pages/Solutions";
 import IntegrationsPage from "./pages/Integrations";
 import AppsPage from "./pages/Apps";
 import Blog from "./pages/Blog";
+import BlogArticle from "./pages/BlogArticle";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -1348,6 +1349,10 @@ export default function App() {
         <Route path="/integrations" element={<IntegrationsPage />} />
         <Route path="/apps" element={<AppsPage />} />
         <Route path="/blog" element={<Blog />} />
+        <Route
+          path="/blog/why-your-business-needs-a-voip-phone-system-in-2026"
+          element={<BlogArticle />}
+        />
         <Route path="/plans" element={<Plans />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy" element={<Privacy />} />

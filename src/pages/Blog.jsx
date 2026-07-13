@@ -10,6 +10,7 @@ const blogPosts = [
     date: "July 1, 2026",
     readTime: "5 min read",
     image: new URL("../../voip 2026.jpg", import.meta.url).href,
+    slug: "why-your-business-needs-a-voip-phone-system-in-2026",
     category: "VoIP Trends",
   },
   {
@@ -119,7 +120,7 @@ const Blog = () => {
                       {post.excerpt}
                     </p>
                     <Link
-                      to="/contact"
+                      to={post.slug ? `/blog/${post.slug}` : "/contact"}
                       className="mt-4 text-brand-violet font-semibold text-sm hover:underline"
                     >
                       Read More →
