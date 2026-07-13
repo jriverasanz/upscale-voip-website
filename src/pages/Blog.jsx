@@ -29,6 +29,7 @@ const blogPosts = [
       "From call routing and presence to AI-powered analytics — here are the must-have features your unified communications platform should include.",
     date: "May 28, 2025",
     readTime: "6 min read",
+    slug: "top-10-features-to-look-for-in-a-ucaas-provider",
     category: "UCaaS",
   },
   {
