@@ -6,7 +6,7 @@ const featureCategories = [
   {
     id: "call-handling",
     name: "Call Handling & Routing",
-    icon: "📞",
+    icon: "",
     features: [
       {
         name: "Call Queues",
@@ -58,7 +58,7 @@ const featureCategories = [
   {
     id: "call-management",
     name: "Call Management & Monitoring",
-    icon: "📊",
+    icon: "",
     features: [
       {
         name: "Call Recording",
@@ -125,7 +125,7 @@ const featureCategories = [
   {
     id: "user-features",
     name: "User Features & Presence",
-    icon: "👤",
+    icon: "",
     features: [
       {
         name: "Extension User Features",
@@ -182,7 +182,7 @@ const featureCategories = [
   {
     id: "apps-devices",
     name: "Apps & Devices",
-    icon: "📱",
+    icon: "",
     features: [
       {
         name: "Web & Mobile App",
@@ -244,7 +244,7 @@ const featureCategories = [
   {
     id: "system-admin",
     name: "System & Admin",
-    icon: "⚙️",
+    icon: "",
     features: [
       {
         name: "PBX System Features",
@@ -311,7 +311,7 @@ const featureCategories = [
   {
     id: "caller-id",
     name: "Caller ID & Numbers",
-    icon: "🆔",
+    icon: "",
     features: [
       {
         name: "Caller ID Management (Inbound & Outbound)",
@@ -343,7 +343,7 @@ const featureCategories = [
   {
     id: "integrations-portal",
     name: "Integrations & Portal",
-    icon: "🔗",
+    icon: "",
     features: [
       {
         name: "Customer Portal",
@@ -547,7 +547,7 @@ function Solutions() {
                       : "bg-gray-100 text-brand-charcoal hover:bg-gray-200"
                   }`}
                 >
-                  {cat.icon} {cat.name}
+                  {cat.name}
                 </button>
               ))}
             </div>
@@ -564,7 +564,6 @@ function Solutions() {
               .map((category) => (
                 <div key={category.id} id={`cat-${category.id}`}>
                   <div className="flex items-center gap-3 mb-6">
-                    <span className="text-2xl">{category.icon}</span>
                     <h2 className="font-display text-2xl text-brand-navy">
                       {category.name}
                     </h2>
