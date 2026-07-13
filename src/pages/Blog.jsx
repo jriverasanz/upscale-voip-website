@@ -4,12 +4,12 @@ import Footer from "../components/Footer";
 
 const blogPosts = [
   {
-    title: "Why Your Business Needs a VoIP Phone System in 2025",
+    title: "Why Your Business Needs a VoIP Phone System in 2026",
     excerpt:
       "Discover how modern VoIP technology can slash your communication costs, boost productivity, and give your team enterprise-grade features without the hardware headaches.",
-    date: "July 1, 2025",
+    date: "July 1, 2026",
     readTime: "5 min read",
-    image: new URL("../../blog july 1.jpg", import.meta.url).href,
+    image: new URL("../../voip 2026.jpg", import.meta.url).href,
     category: "VoIP Trends",
   },
   {
