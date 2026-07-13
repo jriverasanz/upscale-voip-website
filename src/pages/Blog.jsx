@@ -39,6 +39,7 @@ const blogPosts = [
       "Learn proven strategies to improve customer experience, optimize queue management, and reduce the number of callers who hang up before reaching an agent.",
     date: "May 10, 2025",
     readTime: "4 min read",
+    slug: "how-to-reduce-call-abandonment-rates-in-your-contact-center",
     category: "Contact Center",
   },
   {
