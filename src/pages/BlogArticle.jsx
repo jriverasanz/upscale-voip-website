@@ -194,6 +194,7 @@ const articles = {
   },
   "hosted-pbx-vs-traditional-phone-systems": {
     category: "Hosted PBX",
+    image: new URL("../../blog 2.jpg", import.meta.url).href,
     title:
       "Hosted PBX vs. Traditional Phone Systems: Which Is Right for Your Business?",
     date: "June 15, 2025",
