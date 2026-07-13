@@ -459,6 +459,7 @@ const articles = {
   },
   "top-10-features-to-look-for-in-a-ucaas-provider": {
     category: "UCaaS",
+    image: new URL("../../blog 3.jpg", import.meta.url).href,
     title: "Top 10 Features to Look for in a UCaaS Provider",
     date: "May 28, 2025",
     readTime: "6 min read",

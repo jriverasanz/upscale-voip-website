@@ -30,6 +30,7 @@ const blogPosts = [
     date: "May 28, 2025",
     readTime: "6 min read",
     slug: "top-10-features-to-look-for-in-a-ucaas-provider",
+    image: new URL("../../blog 3.jpg", import.meta.url).href,
     category: "UCaaS",
   },
   {
